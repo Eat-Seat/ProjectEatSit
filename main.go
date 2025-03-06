@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	_ "github.com/google/uuid" // Dependencia temporal
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
