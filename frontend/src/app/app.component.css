@@ -1,0 +1,71 @@
+/* Reset general */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Header */
+.app-header {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+}
+
+.app-header nav a {
+  color: #ffffff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 1000;
+  transition: color 0.3s;
+}
+
+.app-header nav a:hover {
+  color: #ffc107;
+}
+
+/* Main */
+.app-main {
+  flex: 1; /* Hace que el main crezca y empuje el footer abajo */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.app-footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1rem;
+}
+
+/* Imágenes */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
