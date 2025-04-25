@@ -1,0 +1,20 @@
+FROM golang:1.24-alpine
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia los archivos de los módulos para aprovechar el caché de dependencias
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copia el resto de los archivos del proyecto
+COPY . .
+
+# Compila la aplicación; se asume que main.go es el entry point
+RUN go build -o project-eatsit .
+
+# Expone el puerto en el que se ejecutará la aplicación (ajusta si es necesario)
+EXPOSE 8080
+
+# Ejecuta el binario generado
+CMD ["./project-eatsit"]
