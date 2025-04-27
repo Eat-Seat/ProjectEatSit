@@ -13,3 +13,16 @@ export async function createUser(data: any) {
   `;
   return { message: "User created successfully" };
 }
+export async function loginUser(data: any) {
+  const { email, password } = data;
+
+  const result = await client.queryObject`
+    SELECT * FROM usuarios WHERE email = ${email} AND password = ${password};
+  `;
+
+  if (result.rows.length === 1) {
+    return { success: true, message: "Login successful", user: result.rows[0] };
+  } else {
+    return { success: false, message: "Invalid email or password" };
+  }
+}

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
 
 
 @Component({
   selector: 'app-log-in',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [CommonModule,FormsModule, RouterModule],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.css'
 })
@@ -16,7 +17,39 @@ export class LogInComponent {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  onSummit(){
-
+  onSubmit() {
+    console.log(this.form);
+  
+    if (!this.form.email || !this.form.password) {
+      this.isLoginFailed = true;
+      this.errorMessage = 'Please fill in both fields.';
+      return;
+    }
+  
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.form)
+    })
+    .then(response => response.json())
+    .then(data => {
+      //console.log("entro")
+      if (data.success) {
+        console.log('Login successful:', data);
+        this.isLoggedIn = true;
+      } else {
+        console.error('Login failed:', data.message);
+        this.isLoginFailed = true;
+        this.errorMessage = data.message;
+      }
+    })
+    .catch(error => {
+      console.error('Error during login:', error);
+      this.isLoginFailed = true;
+      this.errorMessage = error.message;
+    });
   }
+  
 }

@@ -19,6 +19,8 @@ Deno.serve({ port: 3000 }, async (request: Request) => {
 
   if (pathname === "/users") {
     return await usersRouter(request);
+  }else if (pathname === "/login") {
+      return await usersRouter(request);
   } else {
     return new Response("Not Found", {
       status: 404,
