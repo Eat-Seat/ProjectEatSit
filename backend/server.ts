@@ -1,14 +1,30 @@
-import { usuariosRouter } from "./routes/users.routes.ts";
+import { usersRouter } from "./routes/users.routes.ts";
 
-console.log("Servidor listening in http://localhost:3000");
+console.log("Server running at http://localhost:3000");
 
 Deno.serve({ port: 3000 }, async (request: Request) => {
   const url = new URL(request.url);
   const pathname = url.pathname;
+  
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
+  }
 
-  if (request.method === "GET" && pathname === "/usuarios") {
-    return await usuariosRouter(request);
+  if (pathname === "/users") {
+    return await usersRouter(request);
   } else {
-    return new Response("Not Found", { status: 404 });
+    return new Response("Not Found", {
+      status: 404,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
   }
 });

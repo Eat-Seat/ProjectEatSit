@@ -3,37 +3,31 @@
     <div class="register-box">
       
       <div *ngIf="isSignedUp; else registrationForm">
-        <h2>Registration Successful!</h2>
-        <p>Please log in to continue.</p>
+        <h2>El usuario ha sido registrado correctamente</h2>
+        <p>Por favor, log in para continuar</p>
+        <button type="button" [routerLink]="['/login']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">LogIn</button>
       </div>
 
       <ng-template #registrationForm>
-        <form name="registrationForm" (ngSubmit)="f.form.valid && onSummit()" #f="ngForm" novalidate>
+        <form name="registrationForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
           <h2>Create an Account</h2>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="email">Email Address</label>
                 <input id="email" type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required/>
-                <div *ngIf="f.submitted && email.invalid" class="error-message">
-                  <small *ngIf="email.errors?.['required']">Email is required</small>
-                </div>
               </div>
 
               <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel" required minlength="6"/>
-                <div *ngIf="f.submitted && password.invalid" class="error-message">
-                  <small *ngIf="password.errors?.['required']">Password is required</small>
-                  <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</small>
-                </div>
+                <input id="password" type="password" class="form-control" name="password" [(ngModel)]="form.password"/>
               </div>
 
               <div class="form-group">
-                <label for="category">Role</label>
-                <select id="category" name="category" class="form-control" [(ngModel)]="form.category" required>
-                  <option value="patient">Customer</option>
-                  <option value="admin">Restaurant</option>
+                <label for="role">Role</label>
+                <select id="role" name="role" class="form-control" [(ngModel)]="form.role" required>
+                  <option value="cliente">cliente</option>
+                  <option value="restaurante">restaurante</option>
                 </select>
               </div>
             </div>
@@ -42,25 +36,17 @@
               <div class="form-group">
                 <label for="firstname">First Name</label>
                 <input id="firstname" type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" #firstname="ngModel" required/>
-                <div *ngIf="f.submitted && firstname.invalid" class="error-message">
-                  <small *ngIf="firstname.errors?.['required']">First name is required</small>
-                </div>
               </div>
 
               <div class="form-group">
                 <label for="lastname">Last Name</label>
                 <input id="lastname" type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" #lastname="ngModel" required/>
-                <div *ngIf="f.submitted && lastname.invalid" class="error-message">
-                  <small *ngIf="lastname.errors?.['required']">Last name is required</small>
-                </div>
               </div>
 
               <div class="form-group">
                 <label for="phone">Phone Number</label>
                 <input id="phone" type="text" class="form-control" name="phone" [(ngModel)]="form.phone" #phone="ngModel" required/>
-                <div *ngIf="f.submitted && phone.invalid" class="error-message">
-                  <small *ngIf="phone.errors?.['required']">Phone number is required</small>
-                </div>
+                
               </div>
             </div>
           </div>
