@@ -1,0 +1,7 @@
+{
+    "importMap": "./import_map.json",
+    "tasks": {
+      "dev": "run --allow-net --allow-env --unstable server.ts"
+    }
+  }
+  
