@@ -48,7 +48,6 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  // Guardar solo el rol (authority)
   setAuthority(role: string): void {
     this.authoritySubject.next(role);
     localStorage.setItem('authority', role);
@@ -67,5 +66,8 @@ export class AuthService {
     this.authoritySubject.next(null);
     localStorage.removeItem('user');
     localStorage.removeItem('authority');
+  }
+  clear(): void{
+    localStorage.clear();
   }
 }

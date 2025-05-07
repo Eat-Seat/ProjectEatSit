@@ -3,10 +3,13 @@
     <h1>EatSit</h1>
     <nav>
       <a [routerLink]="['/dashboard']" class="btn btn-accent px-4">Inicio</a>
-      <a [routerLink]="['/login']" class="btn btn-accent px-4">LogIn/SignUp</a>
-      <!-- <a *ngIf="authority.includes('doctor')" [routerLink]="['/patients']" class="btn btn-accent px-4">All patients</a> -->
-      <a href="#">Reservas</a>
-      <a href="#">Contacto</a>
+      <a *ngIf="!authority" [routerLink]="['/login']" class="btn btn-accent px-4">LogIn/SignUp</a>
+      <a *ngIf="authority?.includes('cliente')" [routerLink]="['/addreservas']" class="btn btn-accent px-4">Reservar un restaurante</a>
+      <a *ngIf="authority?.includes('cliente')" [routerLink]="['/misreservas']" class="btn btn-accent px-4">Mis Reservas</a>
+      <a *ngIf="authority?.includes('cliente')" [routerLink]="['/account']" class="btn btn-accent px-4">Cuenta</a>
+      <a *ngIf="authority?.includes('cliente')" class="btn btn-accent px-4" (click) =logout()>LogOut</a>
+      <a *ngIf="authority?.includes('restaurant')" class="btn btn-accent px-4" (click) =logout()>LogOut</a>
+      <a *ngIf="authority?.includes('restaurant')" [routerLink]="['/account']" class="btn btn-accent px-4">Cuenta</a>
     </nav>
   </header>
 

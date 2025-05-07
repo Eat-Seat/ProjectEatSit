@@ -1,11 +1,15 @@
 <div class="two-columns">
-    <div class="text-column">
+    <div *ngIf="!authority" class="text-column">
         <h4>Bienvenido a EatSit</h4>
         <p>Encuentra los mejores restaurantes y haz tus reservas fácilmente.</p>
         <div>
           <button [routerLink]="['/login']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Login</button>
         </div>
-        
+    </div>
+    <div *ngIf="authority?.includes('cliente')" class="text-column">
+      <h4>Bienvenido de vuelta EatSit</h4>
+      <p>¡Hola, {{ user?.firstname }}! Ya puedes explorar y reservar en los mejores restaurantes de la ciudad.</p>
+      <p>Accede a tus reservas, consulta tus favoritos o descubre nuevos lugares para disfrutar. </p>
     </div>
     <div class="image-column">
       <img src="../../assets/logo.png" alt="Logo Image" class="img-fluid">

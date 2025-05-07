@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 import { AuthService } from '../services/authservice.service';
 
@@ -14,7 +14,7 @@ import { AuthService } from '../services/authservice.service';
 })
 export class LogInComponent {
   authority: string | null = null;
-  constructor (private authservice: AuthService){}
+  constructor (private authservice: AuthService, private router: Router){}
   ngOnInit(){
     this.authservice.getAuthority$().subscribe(role => {
       this.authority = role;
@@ -48,6 +48,7 @@ export class LogInComponent {
         const user = data.user;
         this.authservice.setUser(user);  
         this.isLoggedIn = true;
+        this.router.navigate(['/dashboard']);
       } else {
         console.error('Login failed:', data.message);
         this.isLoginFailed = true;
