@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterModule, Router } from '@angular/router';
 import { AuthService } from './services/authservice.service'; 
 import { CommonModule } from '@angular/common';
@@ -26,5 +26,10 @@ export class AppComponent implements OnInit {
   logout(){
     this.authService.logout();
     this.router.navigate(['/dashboard']);
+  }
+  @HostListener('window:beforeunload', ['$event'])
+  clearLocalStorage(event: Event) {
+    localStorage.clear();
+    sessionStorage.clear();
   }
 }
