@@ -1,5 +1,6 @@
 import { usersRouter } from "./routes/users.routes.ts";
 
+
 console.log("Server running at http://localhost:3000");
 
 Deno.serve({ port: 3000 }, async (request: Request) => {
@@ -11,13 +12,13 @@ Deno.serve({ port: 3000 }, async (request: Request) => {
       status: 204,
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, POST,PUT,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
       },
     });
   }
 
-  if (pathname === "/users") {
+  if (pathname.startsWith("/users")==true) {
     return await usersRouter(request);
   }else if (pathname === "/login") {
       return await usersRouter(request);

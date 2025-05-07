@@ -1,0 +1,107 @@
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background-color: #85c1e9;
+    height: auto;
+    flex-wrap: wrap;
+  }
+  
+  .text-column, .image-column {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .text-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .image-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  img {
+    width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  h4 {
+    font-size: 60px;
+    font-weight: 100;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 20px;
+    font-weight: 100;
+    color: white;
+    margin-top: 0.5rem;
+  }
+  
+  label {
+    color: white;
+    margin-top: 1rem;
+    font-size: 18px;
+  }
+  
+  .form-control {
+    padding: 0.75rem;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+  }
+  
+  button {
+    background-color: white;
+    border: 3px solid rgb(3, 127, 243);
+    color: #0081cc;
+    font-family: 'Arial', sans-serif;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+  }
+  
+  .btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+  }
+  
+  @media (max-width: 768px) {
+    .two-columns {
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+    }
+  
+    .text-column, .image-column {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    img {
+      width: 90%;
+      height: auto;
+    }
+  }
+  

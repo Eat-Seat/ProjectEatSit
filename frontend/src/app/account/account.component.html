@@ -1,1 +1,44 @@
-<p>account works!</p>
+<div class="two-columns">
+    <!-- Columna de texto (información o edición) -->
+    <div class="text-column" *ngIf="user">
+  
+      <h4>Mi perfil</h4>
+  
+      <!-- Modo lectura -->
+      <div *ngIf="!editMode">
+        <p><strong>Nombre:</strong> {{ user.firstname }}</p>
+        <p><strong>Apellido:</strong> {{ user.lastname }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Teléfono:</strong> {{ user.telefono }}</p>
+        <p><strong>Rol:</strong> {{ user.role }}</p>
+  
+        <button (click)="toggleEdit()">Editar</button>
+        <button class="btn-danger" (click)="deleteAccount()">Eliminar cuenta</button>
+      </div>
+  
+      <!-- Modo edición -->
+      <form *ngIf="editMode" (ngSubmit)="saveChanges()">
+        <label>Nombre</label>
+        <input [(ngModel)]="user.firstname" name="firstname" class="form-control" />
+  
+        <label>Apellido</label>
+        <input [(ngModel)]="user.lastname" name="lastname" class="form-control" />
+  
+        <label>Teléfono</label>
+        <input [(ngModel)]="user.telefono" name="telefono" class="form-control" />
+        <label>Email</label>
+        <input [(ngModel)]="user.email" name="email" class="form-control" />
+        <label>Contraseña</label>
+        <input [(ngModel)]="user.password" name="password" class="form-control" />
+
+        <button type="submit">Guardar</button>
+        <button type="button" class="btn-secondary" (click)="toggleEdit()">Cancelar</button>
+      </form>
+    </div>
+  
+    <!-- Columna de imagen -->
+    <div class="image-column">
+      <img src="../../assets/cuenta.png" alt="Imagen de cuenta" class="img-fluid" />
+    </div>
+  </div>
+  

@@ -9,6 +9,7 @@ export interface User {
   lastname: string;
   role: 'cliente' | 'restaurante';
   telefono: string;
+  password: string;
 }
 
 @Injectable({
