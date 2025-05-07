@@ -4,6 +4,7 @@
     <nav>
       <a [routerLink]="['/dashboard']" class="btn btn-accent px-4">Inicio</a>
       <a [routerLink]="['/login']" class="btn btn-accent px-4">LogIn/SignUp</a>
+      <!-- <a *ngIf="authority.includes('doctor')" [routerLink]="['/patients']" class="btn btn-accent px-4">All patients</a> -->
       <a href="#">Reservas</a>
       <a href="#">Contacto</a>
     </nav>

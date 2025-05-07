@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
+import { AuthService } from '../services/authservice.service';
 
 
 @Component({
@@ -12,6 +13,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './log-in.component.css'
 })
 export class LogInComponent {
+  authority: string | null = null;
+  constructor (private authservice: AuthService){}
+  ngOnInit(){
+    this.authservice.getAuthority$().subscribe(role => {
+      this.authority = role;
+    });
+  }
   form: any = {};
   token?: string;
   isLoggedIn = false;
@@ -37,7 +45,8 @@ export class LogInComponent {
     .then(data => {
       //console.log("entro")
       if (data.success) {
-        console.log('Login successful:', data);
+        const user = data.user;
+        this.authservice.setUser(user);  
         this.isLoggedIn = true;
       } else {
         console.error('Login failed:', data.message);

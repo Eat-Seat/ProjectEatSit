@@ -1,12 +1,14 @@
 <div class="container-fluid pt-5 btn-accent">
     <div class="container">
       <div class="container1">
-        <h2 class="section px-5 mt-5 text-white font-uniform">Sign in</h2>
+        <h2 class="section px-5 mt-5 text-white font-uniform">Log in</h2>
   
         <div *ngIf="isLoggedIn; else formTemplate">
           <h2>El usuario ha sido registrado correctamente</h2>
           <p>Por favor, log in para continuar</p>
-          <button type="button" [routerLink]="['/login']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Log In</button>
+          <p *ngIf="authority === 'cliente'">Bienvenido cliente</p>
+          <p *ngIf="authority === 'restaurante'">Bienvenido restaurante</p>
+          <button type="button" [routerLink]="['/dashboard']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Home</button>
         </div>
   
         <ng-template #formTemplate>
