@@ -68,11 +68,33 @@ export class AccountComponent implements OnInit {
   
 
   deleteAccount(): void {
+    const user = this.authService.getUser();
+    if (!user || !user.id) {
+      console.error("No hay usuario autenticado o falta el ID.");
+      return;
+    }    
     if (confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      this.authService.logout();
-      // Aquí podrías llamar también a un backend si estás conectado
-      alert('Cuenta eliminada correctamente.');
-      this.router.navigate(['/login']);
+      fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Cuenta eliminada correctamente.');
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        } else {
+          console.error('Error al eliminar:', data.message);
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+        alert('Error en la conexión con el servidor');
+      });
     }
   }
 }

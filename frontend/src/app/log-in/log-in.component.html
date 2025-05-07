@@ -1,44 +1,46 @@
 <div class="container-fluid pt-5 btn-accent">
-    <div class="container">
-      <div class="container1">
-        <h2 class="section px-5 mt-5 text-white font-uniform">Log in</h2>
-  
-        <div *ngIf="isLoggedIn; else formTemplate">
-          <h2>El usuario ha sido registrado correctamente</h2>
-          <p>Por favor, log in para continuar</p>
-          <p *ngIf="authority === 'cliente'">Bienvenido cliente</p>
-          <p *ngIf="authority === 'restaurante'">Bienvenido restaurante</p>
-          <button type="button" [routerLink]="['/dashboard']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Home</button>
-        </div>
-  
-        <ng-template #formTemplate>
-          <div class="cuadrado">
-            <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
-              <div class="form-group text-black-50 font-uniform font-weight-bold">
-                <label for="email">Email</label><br>
-                <input id="email" type="text" class="form-control" name="email" [(ngModel)]="form.email"
-                  #email="ngModel" required/>
-              </div>
-  
-              <div class="form-group text-black-50 font-uniform font-weight-bold">
-                <label for="password">Password</label><br>
-                <input id="password" type="password" class="form-control" name="password" [(ngModel)]="form.password"
-                  #password="ngModel" required minlength="6"/>
-              </div>
-  
-              <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary btn-accent">Login</button>
-              </div>
-            </form>
-  
-            <p class="text-center text-black-50 mt-3">Don't have an account?</p>
-            <div class="text-center">
-              <button type="button" [routerLink]="['/register']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Sign Up</button>
-            </div>
-          </div>
-        </ng-template>
-  
+  <div class="container">
+    <div class="container1">
+      <h2 class="section px-5 mt-5 text-white font-uniform">Log in</h2>
+
+      <div *ngIf="isLoggedIn; else formTemplate">
+        <h2>El usuario ha sido registrado correctamente</h2>
+        <p>Por favor, log in para continuar</p>
+        <p *ngIf="authority === 'cliente'">Bienvenido cliente</p>
+        <p *ngIf="authority === 'restaurante'">Bienvenido restaurante</p>
+        <button type="button" [routerLink]="['/dashboard']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Home</button>
       </div>
+
+      <ng-template #formTemplate>
+        <div class="cuadrado">
+          <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group text-black-50 font-uniform font-weight-bold">
+              <label for="email">Email</label><br>
+              <input id="email" type="text" class="form-control" name="email" [(ngModel)]="form.email"
+                #email="ngModel" required />
+            </div>
+
+            <div class="form-group text-black-50 font-uniform font-weight-bold">
+              <label for="password">Password</label><br>
+              <input id="password" type="password" class="form-control" name="password" [(ngModel)]="form.password"
+                #password="ngModel" required minlength="6" />
+            </div>
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-accent">Login</button>
+            </div>
+          </form>
+          <div *ngIf="isLoginFailed" class="alert alert-danger text-center mt-3" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <p class="text-center text-black-50 mt-3">Don't have an account?</p>
+          <div class="text-center">
+            <button type="button" [routerLink]="['/register']" class="btn btn-custom mt-1 py-3 px-5 font-uniform">Sign Up</button>
+          </div>
+        </div>
+      </ng-template>
+
     </div>
   </div>
-  
+</div>

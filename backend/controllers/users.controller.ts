@@ -57,3 +57,14 @@ export async function updateUser(id: number, data: any) {
 
   return { success: true, message: "Usuario actualizado correctamente." };
 }
+export async function deleteUser(id: number) {
+  const result = await client.queryObject`
+    DELETE FROM usuarios WHERE id = ${id};
+  `;
+
+  if (result.rowCount === 1) {
+    return { success: true, message: "Usuario eliminado correctamente." };
+  } else {
+    return { success: false, message: "No se encontró el usuario para eliminar." };
+  }
+}
