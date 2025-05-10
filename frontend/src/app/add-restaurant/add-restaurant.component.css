@@ -1,0 +1,79 @@
+.container-fluid {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-color: #85c1e9;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 15px;
+  }
+  
+  .register-box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .btn-custom {
+    background-color: #85c1e9;
+    border: 4px solid rgb(3, 127, 243);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    padding: 0.5rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+  }
+  
+  .alert {
+    font-size: 1rem;
+  }
+  

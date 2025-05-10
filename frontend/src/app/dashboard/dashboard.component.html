@@ -11,6 +11,12 @@
       <p>¡Hola, {{ user?.firstname }}! Ya puedes explorar y reservar en los mejores restaurantes de la ciudad.</p>
       <p>Accede a tus reservas, consulta tus favoritos o descubre nuevos lugares para disfrutar. </p>
     </div>
+    <div *ngIf="authority?.includes('restaurante')" class="text-column">
+      <h4>Bienvenido de vuelta EatSit</h4>
+      <p>¡Hola, {{ user?.firstname }}!</p>
+      <p>Ya puedes abrir y cerrar los mejores restaurantes del mundo.</p>
+      <p>Accede a las reservas de tus restaurante para obtener toda la información de las mismas. </p>
+    </div>
     <div class="image-column">
       <img src="../../assets/logo.png" alt="Logo Image" class="img-fluid">
     </div>

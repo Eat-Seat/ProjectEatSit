@@ -1,10 +1,8 @@
 <div class="two-columns">
-    <!-- Columna de texto (información o edición) -->
     <div class="text-column" *ngIf="user">
   
       <h4>Mi perfil</h4>
-  
-      <!-- Modo lectura -->
+
       <div *ngIf="!editMode">
         <p><strong>Nombre:</strong> {{ user.firstname }}</p>
         <p><strong>Apellido:</strong> {{ user.lastname }}</p>
@@ -16,7 +14,6 @@
         <button class="btn-danger" (click)="deleteAccount()">Eliminar cuenta</button>
       </div>
   
-      <!-- Modo edición -->
       <form *ngIf="editMode" (ngSubmit)="saveChanges()">
         <label>Nombre</label>
         <input [(ngModel)]="user.firstname" name="firstname" class="form-control" />
@@ -36,7 +33,6 @@
       </form>
     </div>
   
-    <!-- Columna de imagen -->
     <div class="image-column">
       <img src="../../assets/cuenta.png" alt="Imagen de cuenta" class="img-fluid" />
     </div>
