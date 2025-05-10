@@ -9,17 +9,15 @@
       <a *ngIf="authority?.includes('cliente')" [routerLink]="['/account']" class="btn btn-accent px-4">Cuenta</a>
       <a *ngIf="authority?.includes('cliente')" class="btn btn-accent px-4" (click) =logout()>LogOut</a>
       <a *ngIf="authority?.includes('restaurante')" [routerLink]="['/addrestaurant']" class="btn btn-accent px-4">Añadir un restaurante</a>
+      <a *ngIf="authority?.includes('restaurante')" [routerLink]="['/viewrestaurants']" class="btn btn-accent px-4">Ver mis restaurantes</a>
       <a *ngIf="authority?.includes('restaurante')" [routerLink]="['/account']" class="btn btn-accent px-4">Cuenta</a>
       <a *ngIf="authority?.includes('restaurante')" class="btn btn-accent px-4" (click) =logout()>LogOut</a>
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main class="app-main">
     <router-outlet></router-outlet>
   </main>
-
-  <!-- Footer -->
   <footer class="app-footer">
     <p>&copy; 2025 EatSit. Todos los derechos reservados.</p>
   </footer>

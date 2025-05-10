@@ -66,6 +66,19 @@
     margin-top: 1rem;
     cursor: pointer;
   }
+  button{
+    background-color: #85c1e9;
+    border: 4px solid rgb(3, 127, 243);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    padding: 0.5rem 1rem; 
+    font-size: 4 rem; 
+    border-radius: 8px; 
+    /* cursor: pointer;  */
+    /* width: fit-content; */
+    /* margin-left: 15rem; */
+    margin-top: 1rem;
+    }
   
   .error-message {
     color: red;

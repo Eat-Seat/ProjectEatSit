@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <h2 class="titulo-principal text-center mb-5">
+    En esta pestaña puedes ver los restaurantes agrupados por ciudades
+  </h2>
+
+  <div *ngFor="let ciudad of (groupedRestaurantes | keyvalue)">
+    <div class="ciudad-bloque">
+      <div class="ciudad-header">
+        📍 {{ ciudad.key }}
+      </div>
+
+      <div class="tarjetas-dias">
+        <div *ngFor="let r of ciudad.value" class="tarjeta-dia">
+          <h5 class="nombre-restaurante">{{ r.nombre }}</h5>
+          <ul class="detalles">
+            <li><strong>Dirección:</strong> {{ r.direccion }}</li>
+            <li><strong>Ciudad:</strong> {{ r.ciudad }}</li>
+            <li><strong>Capacidad:</strong> {{ r.capacidad }}</li>
+          </ul>
+          <div class="botones">
+            <button type="button" class="editar" (click)="editarRestaurante(r)">Editar</button>
+            <button type="button" class="eliminar" (click)="borrarRestaurante(r)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

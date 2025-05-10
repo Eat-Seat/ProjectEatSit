@@ -12,7 +12,7 @@ import { AuthService } from '../services/authservice.service';
 })
 export class DashboardComponent {
   authority: string | null = null;
-user: any;
+  user: any;
   
   constructor(private authService: AuthService) {}
 

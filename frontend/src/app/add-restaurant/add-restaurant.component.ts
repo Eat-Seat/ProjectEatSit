@@ -2,17 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/authservice.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-add-restaurant',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './add-restaurant.component.html',
   styleUrl: './add-restaurant.component.css'
 })
 export class AddRestaurantComponent implements OnInit{
-  hasError: any;
-  errorMessage: any;
-  user: any;
+  hasError: boolean = false;
+  restaurantcreated: boolean = false;
+  errorMessage: string = '';
+  user: any = null;
   restaurantForm = {
     name: '',
     address: '',
@@ -53,6 +55,7 @@ export class AddRestaurantComponent implements OnInit{
       console.log('Restaurant created successfully');
       this.hasError = false;
       this.errorMessage = '';
+      this.restaurantcreated = true;
       console.log(data);
     } else {
       this.hasError = true;

@@ -7,6 +7,7 @@ import { MisreservasComponent } from './misreservas/misreservas.component';
 import { AddreservaComponent } from './addreserva/addreserva.component';
 import { AccountComponent } from './account/account.component';
 import { AddRestaurantComponent } from './add-restaurant/add-restaurant.component';
+import { ViewRestaurantsComponent } from './view-restaurants/view-restaurants.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
@@ -16,7 +17,8 @@ export const routes: Routes = [
   { path: 'misreservas', component: MisreservasComponent},
   { path: 'addreservas', component: AddreservaComponent},
   { path: 'account', component: AccountComponent},
-  { path: 'addrestaurant', component: AddRestaurantComponent}
+  { path: 'addrestaurant', component: AddRestaurantComponent},
+  { path: 'viewrestaurants', component: ViewRestaurantsComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
