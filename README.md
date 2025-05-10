@@ -74,7 +74,7 @@ ProyectEatSeat/
 
 4. Access it in your browser at `http://localhost:4200`.
 
-## 📝 Features Implemented
+## Features Implemented
 
 - User registration and login
 - Role-based interface (`cliente` / `restaurante`)
@@ -83,7 +83,7 @@ ProyectEatSeat/
 - Frontend-backend communication using `fetch`
 - CORS-enabled backend for Angular compatibility
 
-## 🔮 Next Steps
+## Next Steps
 
 - Add restaurant and reservation logic
 - Role-based route guards in Angular
@@ -91,7 +91,7 @@ ProyectEatSeat/
 - Deployment on cloud platforms
 
 
-## 👨 Author
+## Author
 
 Luis Laballós González and Alonso Codesal Martinez – Final project for Software Engineering course
 
