@@ -1,19 +1,54 @@
 <div class="container mt-5">
-  <h2 class="titulo-principal text-center mb-5"><strong>Mis reservas</strong></h2>
+  <h2 class="titulo-principal text-center mb-5">📅 <strong>Mis reservas</strong></h2>
 
   <div class="tarjetas-dias">
     <div *ngFor="let r of reservas" class="tarjeta-dia">
-      <h5 class="nombre-restaurante">🍽️ {{ r.restaurante_nombre }}</h5>
-      <p class="restaurante-direccion">📍 {{ r.direccion }}, {{ r.ciudad }}</p>
+      <div *ngIf="editandoId !== r.reserva_id; else edicion">
+        <h5 class="nombre-restaurante">🍽️ {{ r.restaurante_nombre }}</h5>
+        <p class="restaurante-direccion">📍 {{ r.direccion }}, {{ r.ciudad }}</p>
+        <ul class="detalles">
+          <li><strong>Reservado por:</strong> {{ r.nombre }} {{ r.apellidos }}</li>
+          <li><strong>Teléfono:</strong> {{ r.telefono }}</li>
+          <li><strong>Personas:</strong> {{ r.personas }}</li>
+          <li><strong>Fecha:</strong> {{ r.fecha | date: 'dd/MM/yyyy' }}</li>
+          <li><strong>Hora:</strong> {{ r.hora }}</li>
+        </ul>
+        <div class="botones mt-3">
+          <button class="editar" (click)="editarReserva(r)">✏️ Editar</button>
+          <button class="eliminar" (click)="borrarReserva(r.reserva_id)">🗑️ Borrar</button>
+        </div>
+      </div>
 
-      <ul class="detalles">
-        <li><span class="icono">🙋</span> <strong>Reservado por:</strong> {{ r.nombre }} {{ r.apellidos }}</li>
-        <li><span class="icono">📞</span> <strong>Teléfono contacto:</strong> {{ r.telefono }}</li>
-        <li><span class="icono">👥</span> <strong>Personas:</strong> {{ r.personas }}</li>
-        <li><span class="icono">📆</span> <strong>Fecha:</strong> {{ r.fecha | date: 'dd/MM/yyyy' }}</li>
-        <li><span class="icono">⏰</span> <strong>Hora:</strong> {{ r.hora }}</li>
-        <li><span class="icono">🏢</span> <strong>Capacidad del restaurante:</strong> {{ r.capacidad }}</li>
-      </ul>
+      <ng-template #edicion>
+        <div class="form-group mb-2">
+          <label>Nombre:</label>
+          <input [(ngModel)]="formularioEdicion.nombre" class="form-control" />
+        </div>
+        <div class="form-group mb-2">
+          <label>Apellidos:</label>
+          <input [(ngModel)]="formularioEdicion.apellidos" class="form-control" />
+        </div>
+        <div class="form-group mb-2">
+          <label>Teléfono:</label>
+          <input [(ngModel)]="formularioEdicion.telefono" class="form-control" />
+        </div>
+        <div class="form-group mb-2">
+          <label>Personas:</label>
+          <input type="number" [(ngModel)]="formularioEdicion.personas" class="form-control" />
+        </div>
+        <div class="form-group mb-2">
+          <label>Fecha:</label>
+          <input type="date" [(ngModel)]="formularioEdicion.fecha" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label>Hora:</label>
+          <input type="time" [(ngModel)]="formularioEdicion.hora" class="form-control" />
+        </div>
+        <div class="d-flex justify-content-between">
+          <button type="button" class="editar" (click)="guardarEdicion(r)">💾 Guardar</button>
+          <button type="button" class="eliminar" (click)="editandoId = null">✖️ Cancelar</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

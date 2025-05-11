@@ -177,3 +177,30 @@ button.cancelar {
 button.cancelar:hover {
   background-color: #c0392b;
 }
+button {
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+button.editar {
+  background-color: #3498db;
+}
+
+button.editar:hover {
+  background-color: #2c81ba;
+}
+
+button.eliminar {
+  background-color: #e74c3c;
+}
+
+button.eliminar:hover {
+  background-color: #c0392b;
+}
