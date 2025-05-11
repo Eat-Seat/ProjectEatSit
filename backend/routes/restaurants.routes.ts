@@ -1,4 +1,4 @@
-import { createRestaurante, deleteRestaurante, getAllRestaurantes, updateRestaurante } from "../controllers/restaurants.controller.ts";
+import { createRestaurante, deleteRestaurante, getAllRestaurantes, getRestaurantesByOwner, updateRestaurante } from "../controllers/restaurants.controller.ts";
 
 export async function restaurantesRouter(request: Request) {
   const url = new URL(request.url);
@@ -13,7 +13,18 @@ export async function restaurantesRouter(request: Request) {
         "Access-Control-Allow-Origin": "*"
       }
     });
-  } else if (request.method === "GET" && pathname === "/restaurants") {
+  }  else if (request.method === "GET" && pathname === "/restaurants") {
+  const ownerId = url.searchParams.get("owner_id");
+
+  if (ownerId) {
+    const result = await getRestaurantesByOwner(parseInt(ownerId));
+    return new Response(JSON.stringify(result), {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+  } else {
     const result = await getAllRestaurantes();
     return new Response(JSON.stringify(result), {
       headers: {
@@ -21,7 +32,8 @@ export async function restaurantesRouter(request: Request) {
         "Access-Control-Allow-Origin": "*"
       }
     });
-  } else if (request.method === "DELETE" && /^\/restaurants\/\d+$/.test(pathname)) {
+  }
+} else if (request.method === "DELETE" && /^\/restaurants\/\d+$/.test(pathname)) {
     const id = parseInt(pathname.split("/")[2]);
     const result = await deleteRestaurante(id);
     return new Response(JSON.stringify(result), {

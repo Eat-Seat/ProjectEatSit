@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-view-restaurants',
@@ -19,13 +20,18 @@ export class ViewRestaurantsComponent implements OnInit{
     capacidad: null
   };
 
-
+  constructor(private authService: AuthService) {};
   ngOnInit() {
-    fetch('http://localhost:3000/restaurants')
-      .then(res => res.json())
-      .then(data => {
-        this.groupedRestaurantes = this.groupByCity(data);
-      });
+    this.authService.getUser$().subscribe(user => {
+       console.log(user?.id);
+    if (user?.id) {
+      fetch(`http://localhost:3000/restaurants?owner_id=${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          this.groupedRestaurantes = this.groupByCity(data);
+        });
+    }
+  });
   }
 
   groupByCity(data: any[]): { [ciudad: string]: any[] } {

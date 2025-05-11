@@ -30,6 +30,13 @@ export async function getAllRestaurantes() {
   const result = await client.queryObject`SELECT * FROM restaurantes;`;
   return result.rows;
 }
+export async function getRestaurantesByOwner(ownerId: number) {
+  const result = await client.queryObject`
+    SELECT * FROM restaurantes WHERE owner_id = ${ownerId};
+  `;
+  return result.rows;
+}
+
 export async function deleteRestaurante(id: number) {
   const result = await client.queryObject`
     DELETE FROM restaurantes WHERE id = ${id};
