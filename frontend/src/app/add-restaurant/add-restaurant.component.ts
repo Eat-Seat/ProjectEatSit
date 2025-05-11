@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './add-restaurant.component.css'
 })
 export class AddRestaurantComponent implements OnInit{
+
   hasError: boolean = false;
   restaurantcreated: boolean = false;
   errorMessage: string = '';

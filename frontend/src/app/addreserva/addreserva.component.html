@@ -45,12 +45,20 @@
                 <label class="form-label">Fecha</label>
                 <input type="date" [(ngModel)]="reservaForm.fecha" class="form-control form-control-sm" />
             </div>
-
+            <div class="form-group mb-3">
+              <label class="form-label">Hora</label>
+              <input type="time" [(ngModel)]="reservaForm.hora" class="form-control form-control-sm" />
+            </div>
             <div class="d-flex justify-content-end gap-2">
                 <button type="button" class="guardar" (click)="guardarReserva(r.id)">Guardar reserva</button>
                 <button type="button" class="cancelar" (click)="formularioAbiertoId = null">Cancelar</button>
             </div>
         </div>
+        <div *ngIf="reservaGuardada && formularioAbiertoId === r.id" class="alert alert-success mt-4 text-center p-4 rounded">
+        <h5 class="text-success mb-3">✅ Reserva realizada con éxito</h5>
+        <p>Puedes consultar tus reservas a continuación:</p>
+        <button class="btn btn-primary mt-2">Ver mis reservas</button>
+      </div>
         </div>
       </div>
     </div>

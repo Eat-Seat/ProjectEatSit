@@ -1,3 +1,4 @@
+import { reservasRouter } from "./routes/reservas.routes.ts";
 import { restaurantesRouter } from "./routes/restaurants.routes.ts";
 import { usersRouter } from "./routes/users.routes.ts";
 
@@ -24,7 +25,9 @@ Deno.serve({ port: 3000 }, async (request: Request) => {
     return await usersRouter(request);
   } else if (pathname.startsWith("/restaurants")) {
     return await restaurantesRouter(request);
-  } else {
+  } else if (pathname.startsWith("/reservas")) {
+    return await reservasRouter(request);
+  }else {
     return new Response("Not Found", {
       status: 404,
       headers: {
