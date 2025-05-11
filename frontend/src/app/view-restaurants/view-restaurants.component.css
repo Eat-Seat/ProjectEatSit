@@ -45,7 +45,7 @@
 }
 
 .nombre-restaurante {
-  font-size: 1.5rem; /* ↑ antes 1.2rem */
+  font-size: 1.5rem; 
   font-weight: 800;
   color: #2c3e50;
   margin-bottom: 0.8rem;

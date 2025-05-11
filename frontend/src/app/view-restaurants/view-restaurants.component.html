@@ -11,15 +11,40 @@
 
       <div class="tarjetas-dias">
         <div *ngFor="let r of ciudad.value" class="tarjeta-dia">
-          <h5 class="nombre-restaurante">{{ r.nombre }}</h5>
-          <ul class="detalles">
-            <li><strong>Dirección:</strong> {{ r.direccion }}</li>
-            <li><strong>Ciudad:</strong> {{ r.ciudad }}</li>
-            <li><strong>Capacidad:</strong> {{ r.capacidad }}</li>
-          </ul>
-          <div class="botones">
-            <button type="button" class="editar" (click)="editarRestaurante(r)">Editar</button>
-            <button type="button" class="eliminar" (click)="borrarRestaurante(r)">Eliminar</button>
+          <div *ngIf="editandoId !== r.id; else edicion">
+            <h5 class="nombre-restaurante">{{ r.nombre }}</h5>
+            <ul class="detalles">
+              <li><strong>Dirección:</strong> {{ r.direccion }}</li>
+              <li><strong>Ciudad:</strong> {{ r.ciudad }}</li>
+              <li><strong>Capacidad:</strong> {{ r.capacidad }}</li>
+            </ul>
+          </div>
+          <ng-template #edicion>
+            <div class="form-group mb-2">
+              <label for="nombre-{{r.id}}" class="form-label">Nombre: </label>
+              <input id="nombre-{{r.id}}" [(ngModel)]="formularioEdicion.nombre" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+              <label for="direccion-{{r.id}}" class="form-label">Dirección: </label>
+              <input id="direccion-{{r.id}}" [(ngModel)]="formularioEdicion.direccion" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+              <label for="ciudad-{{r.id}}" class="form-label">Ciudad: </label>
+              <input id="ciudad-{{r.id}}" [(ngModel)]="formularioEdicion.ciudad" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+              <label for="capacidad-{{r.id}}" class="form-label">Capacidad: </label>
+              <input id="capacidad-{{r.id}}" [(ngModel)]="formularioEdicion.capacidad" type="number" class="form-control" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="button" class="editar" (click)="guardarEdicion(r)">💾 Guardar</button>
+              <button type="button" class="eliminar" (click)="editandoId = null">✖️ Cancelar</button>
+            </div>
+          </ng-template>
+          <div class="botones mt-3">
+            <button type="button" class="editar" (click)="editarRestaurante(r)">✏️ Editar</button>
+            <button type="button" class="eliminar" (click)="borrarRestaurante(r)">🗑️ Eliminar</button>
           </div>
         </div>
       </div>

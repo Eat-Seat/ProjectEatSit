@@ -1,4 +1,4 @@
-import { createRestaurante, deleteRestaurante, getAllRestaurantes } from "../controllers/restaurants.controller.ts";
+import { createRestaurante, deleteRestaurante, getAllRestaurantes, updateRestaurante } from "../controllers/restaurants.controller.ts";
 
 export async function restaurantesRouter(request: Request) {
   const url = new URL(request.url);
@@ -30,7 +30,23 @@ export async function restaurantesRouter(request: Request) {
         "Access-Control-Allow-Origin": "*"
       }
     });
-  }
+  } else if (request.method === "PUT" && /^\/restaurants\/\d+$/.test(pathname)) {
+  const id = parseInt(pathname.split("/")[2]);
+  const body = await request.json();
+  const result = await updateRestaurante(id, body);
+  return new Response(JSON.stringify(result), {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  });
+}
 
-  return new Response("Not Found", { status: 404 });
+// fuera de todos los "if"
+return new Response("Not Found", {
+  status: 404,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+  },
+});
 }

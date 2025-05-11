@@ -1,14 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-restaurants',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './view-restaurants.component.html',
   styleUrl: './view-restaurants.component.css'
 })
 export class ViewRestaurantsComponent implements OnInit{
   groupedRestaurantes: { [ciudad: string]: any[] } = {};
+  editandoId: number | null = null;
+
+  formularioEdicion = {
+    nombre: '',
+    direccion: '',
+    ciudad: '',
+    capacidad: null
+  };
+
 
   ngOnInit() {
     fetch('http://localhost:3000/restaurants')
@@ -29,8 +39,14 @@ export class ViewRestaurantsComponent implements OnInit{
     }, {} as { [key: string]: any[] });
   }
   editarRestaurante(r: any) {
-
-  }
+  this.editandoId = r.id;
+  this.formularioEdicion = {
+    nombre: r.nombre,
+    direccion: r.direccion,
+    ciudad: r.ciudad,
+    capacidad: r.capacidad
+  };
+}
   borrarRestaurante(r: any) {
   const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el restaurante "${r.nombre}"?`);
 
@@ -62,6 +78,33 @@ export class ViewRestaurantsComponent implements OnInit{
       console.error('Error al eliminar:', error);
       alert('Error de conexión con el servidor');
     });
-}
+  }
+  guardarEdicion(r: any) {
+  const id = r.id;
 
+  fetch(`http://localhost:3000/restaurants/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(this.formularioEdicion)
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        // alert('Restaurante actualizado correctamente');
+        Object.assign(r, this.formularioEdicion);
+        this.editandoId = null;
+
+        const allRestaurantes = Object.values(this.groupedRestaurantes).flat();
+        this.groupedRestaurantes = this.groupByCity(allRestaurantes);
+      } else {
+        alert('Error al actualizar el restaurante');
+      }
+    })
+    .catch(error => {
+      console.error('Error al guardar la edición:', error);
+      alert('Error de conexión con el servidor');
+    });
+  }
 }

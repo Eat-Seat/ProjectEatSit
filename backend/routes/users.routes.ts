@@ -1,3 +1,4 @@
+
 import { createUser, deleteUser, loginUser, updateUser } from "../controllers/users.controller.ts";
 
 export async function usersRouter(request: Request) {
@@ -57,7 +58,7 @@ export async function usersRouter(request: Request) {
         "Access-Control-Allow-Headers": "Content-Type",
       },
     });
-  } else {
+  }else {
     return new Response("Method Not Allowed", { status: 405 });
   }
 }

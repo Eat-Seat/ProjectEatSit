@@ -36,5 +36,36 @@ export async function deleteRestaurante(id: number) {
   `;
   return { success: true, message: "Restaurante eliminado correctamente" };
 }
+export async function updateRestaurante(id: number, data: any) {
+  const { nombre, direccion, ciudad, capacidad } = data;
+
+  // Verificamos si el restaurante existe
+  const result = await client.queryObject`
+    SELECT * FROM restaurantes WHERE id = ${id};
+  `;
+
+  if (result.rows.length === 0) {
+    return { success: false, message: "Restaurante no encontrado." };
+  }
+
+  const restauranteActual = result.rows[0];
+
+  const nuevoNombre = nombre || restauranteActual.nombre;
+  const nuevaDireccion = direccion || restauranteActual.direccion;
+  const nuevaCiudad = ciudad || restauranteActual.ciudad;
+  const nuevaCapacidad = capacidad ?? restauranteActual.capacidad;
+
+  await client.queryObject`
+    UPDATE restaurantes
+    SET nombre = ${nuevoNombre},
+        direccion = ${nuevaDireccion},
+        ciudad = ${nuevaCiudad},
+        capacidad = ${nuevaCapacidad}
+    WHERE id = ${id};
+  `;
+
+  return { success: true, message: "Restaurante actualizado correctamente." };
+}
+
 
 
