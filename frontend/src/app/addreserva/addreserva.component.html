@@ -1,1 +1,58 @@
-<p>addreserva works!</p>
+<div class="container mt-5">
+  <h2 class="titulo-principal text-center mb-5">
+    En esta pestaña puedes ver los restaurantes agrupados por ciudades
+  </h2>
+
+  <div *ngFor="let ciudad of (groupedRestaurantes | keyvalue)">
+    <div class="ciudad-bloque">
+      <div class="ciudad-header">
+        📍 {{ ciudad.key }}
+      </div>
+
+      <div class="tarjetas-dias">
+        <div *ngFor="let r of ciudad.value" class="tarjeta-dia">
+            <h5 class="nombre-restaurante">{{ r.nombre }}</h5>
+            <ul class="detalles">
+              <li><strong>Dirección:</strong> {{ r.direccion }}</li>
+              <li><strong>Ciudad:</strong> {{ r.ciudad }}</li>
+              <li><strong>Capacidad:</strong> {{ r.capacidad }}</li>
+            </ul>
+            <div class="botones mt-3">
+                <button type="button" class="editar" (click)="addreserva(r)"> Añadir reserva</button>
+            </div>
+            <div *ngIf="formularioAbiertoId === r.id" class="formulario-reserva mt-4 p-3 rounded shadow-sm bg-white">
+            <div class="form-group mb-3">
+                <label class="form-label">Nombre: </label>
+                <input [(ngModel)]="reservaForm.nombre" class="form-control form-control-sm" placeholder="Nombre del cliente" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Apellidos: </label>
+                <input [(ngModel)]="reservaForm.apellidos" class="form-control form-control-sm" placeholder="Apellidos del cliente" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Teléfono: </label>
+                <input [(ngModel)]="reservaForm.telefono" class="form-control form-control-sm" placeholder="Ej: 612345678" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Número de personas: </label>
+                <input type="number" [(ngModel)]="reservaForm.personas" class="form-control form-control-sm" min="1" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label class="form-label">Fecha</label>
+                <input type="date" [(ngModel)]="reservaForm.fecha" class="form-control form-control-sm" />
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <button type="button" class="guardar" (click)="guardarReserva(r.id)">Guardar reserva</button>
+                <button type="button" class="cancelar" (click)="formularioAbiertoId = null">Cancelar</button>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
