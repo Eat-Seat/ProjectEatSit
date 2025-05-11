@@ -1,1 +1,19 @@
-<p>misreservas works!</p>
+<div class="container mt-5">
+  <h2 class="titulo-principal text-center mb-5"><strong>Mis reservas</strong></h2>
+
+  <div class="tarjetas-dias">
+    <div *ngFor="let r of reservas" class="tarjeta-dia">
+      <h5 class="nombre-restaurante">🍽️ {{ r.restaurante_nombre }}</h5>
+      <p class="restaurante-direccion">📍 {{ r.direccion }}, {{ r.ciudad }}</p>
+
+      <ul class="detalles">
+        <li><span class="icono">🙋</span> <strong>Reservado por:</strong> {{ r.nombre }} {{ r.apellidos }}</li>
+        <li><span class="icono">📞</span> <strong>Teléfono contacto:</strong> {{ r.telefono }}</li>
+        <li><span class="icono">👥</span> <strong>Personas:</strong> {{ r.personas }}</li>
+        <li><span class="icono">📆</span> <strong>Fecha:</strong> {{ r.fecha | date: 'dd/MM/yyyy' }}</li>
+        <li><span class="icono">⏰</span> <strong>Hora:</strong> {{ r.hora }}</li>
+        <li><span class="icono">🏢</span> <strong>Capacidad del restaurante:</strong> {{ r.capacidad }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
