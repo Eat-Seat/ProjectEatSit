@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  go-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.go
+    ports:
+      - "8080:8080"
+
+  deno-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.deno
+    ports:
+      - "3000:3000"
