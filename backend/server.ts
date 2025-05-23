@@ -4,7 +4,7 @@ import { usersRouter } from "./routes/users.routes.ts";
 
 console.log("Server running at http://localhost:3000");
 
-Deno.serve({ port: 3000 }, async (request: Request) => {
+Deno.serve({ hostname: "0.0.0.0", port: 8080 }, async (request: Request) => {
   const url = new URL(request.url);
   const pathname = url.pathname;
   
@@ -32,7 +32,8 @@ Deno.serve({ port: 3000 }, async (request: Request) => {
   }
 });
 
-const frontendPath = `${Deno.cwd()}/../frontend/dist/frontend/browser`;
+const frontendPath = "/app/frontend/dist/frontend/browser";
+
 
 function getContentType(path: string): string {
   if (path.endsWith(".js")) return "application/javascript";
@@ -46,8 +47,10 @@ function getContentType(path: string): string {
 
 async function serveStaticFile(pathname: string): Promise<Response> {
   const filePath = pathname === "/" ? "/index.html" : pathname;
+  const fullPath = frontendPath + filePath;
+
   try {
-    const file = await Deno.readFile(frontendPath + filePath);
+    const file = await Deno.readFile(fullPath);
     const contentType = getContentType(filePath);
     return new Response(file, {
       headers: {
@@ -56,9 +59,10 @@ async function serveStaticFile(pathname: string): Promise<Response> {
       },
     });
   } catch {
-    // Si no se encuentra el archivo, devuelve index.html (SPA fallback)
+    // Para rutas Angular como /dashboard, /misreservas...
+    const fallbackFile = frontendPath + "/index.html";
     try {
-      const file = await Deno.readFile(frontendPath + "/index.html");
+      const file = await Deno.readFile(fallbackFile);
       return new Response(file, {
         headers: {
           "Content-Type": "text/html",
@@ -70,4 +74,5 @@ async function serveStaticFile(pathname: string): Promise<Response> {
     }
   }
 }
+
 

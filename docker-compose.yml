@@ -1,16 +1,31 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  go-server:
-    build:
-      context: .
-      dockerfile: Dockerfile.go
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: INSO_Database
     ports:
-      - "8080:8080"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init-db:/docker-entrypoint-initdb.d
+  app:
+    build: .
+    ports:
+      - "3000:8080"
+    environment:
+      - PORT=8080
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=INSO_Database
+    depends_on:
+      - db
 
-  deno-server:
-    build:
-      context: .
-      dockerfile: Dockerfile.deno
-    ports:
-      - "3000:3000"
+volumes:
+  postgres_data:

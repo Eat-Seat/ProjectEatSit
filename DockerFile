@@ -1,20 +1,23 @@
-FROM golang:1.24-alpine
+# Imagen base de Deno 2.2.1
+FROM denoland/deno:2.2.1
 
-# Establece el directorio de trabajo dentro del contenedor
+# Instalar Node.js y npm
+RUN apt-get update && apt-get install -y nodejs npm
+
+# Crear directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos de los módulos para aprovechar el caché de dependencias
-COPY go.mod go.sum ./
-RUN go mod download
-
-# Copia el resto de los archivos del proyecto
+# Copiar todos los archivos al contenedor
 COPY . .
 
-# Compila la aplicación; se asume que main.go es el entry point
-RUN go build -o project-eatsit .
+# Instalar y compilar Angular usando npx
+RUN cd frontend && npm install && npx ng build
 
-# Expone el puerto en el que se ejecutará la aplicación (ajusta si es necesario)
-EXPOSE 8080
+# Cachear dependencias de Deno
+RUN deno cache backend/routes/server.ts
 
-# Ejecuta el binario generado
-CMD ["./project-eatsit"]
+# Puerto expuesto
+ENV PORT=8080
+
+# Comando de ejecución
+CMD ["run", "--allow-net", "--allow-read", "--allow-env", "--allow-write", "backend/server.ts"]
