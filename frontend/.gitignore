@@ -40,3 +40,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular dist
+/frontend/dist
+
+# Backend cache (por si acaso)
+/backend/__pycache__/
+
+# Variables de entorno
+.env
