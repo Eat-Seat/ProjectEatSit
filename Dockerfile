@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . .
 
 # Instalar y compilar Angular usando npx
-RUN cd frontend && npm install && npx ng build --configuration production
+RUN cd frontend && npm install && npx ng build --configuration=production
 
 # Cachear dependencias de Deno
 RUN deno cache backend/routes/server.ts
