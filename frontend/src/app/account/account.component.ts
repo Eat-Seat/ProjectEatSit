@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, User }from '../services/authservice.service';
+import { environment } from '../../environments/environment';
+
 
 
 @Component({
@@ -42,7 +44,7 @@ export class AccountComponent implements OnInit {
       password: this.user.password
     };
   
-    fetch(`http://localhost:3000/users/${this.user.id}`, {
+    fetch(`${environment.apiUrl}/users/${this.user.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -74,7 +76,7 @@ export class AccountComponent implements OnInit {
       return;
     }    
     if (confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      fetch(`http://localhost:3000/users/${user.id}`, {
+      fetch(`${environment.apiUrl}/users/${user.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
