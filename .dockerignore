@@ -11,3 +11,4 @@ docker-compose.yml
 README.md
 .env
 .vscode
+deno.lock
