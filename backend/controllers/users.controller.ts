@@ -1,4 +1,6 @@
 import { client } from "../db/database.ts";
+import { hash, compare } from "bcrypt";
+
 
 export async function getUsuarios() {
   const result = await client.queryObject("SELECT * FROM usuarios;");
@@ -6,10 +8,11 @@ export async function getUsuarios() {
 }
 export async function createUser(data: any) {
   const { email, password, role, firstname, lastname, telefono } = data;
-  console.log(data)
+  const hashedPassword = await hash(password); // 🔐 Aquí se cifra la contraseña
+
   await client.queryObject`
     INSERT INTO usuarios (email, password, role, firstname, lastname, telefono)
-    VALUES (${email}, ${password}, ${role}, ${firstname}, ${lastname}, ${telefono})
+    VALUES (${email}, ${hashedPassword}, ${role}, ${firstname}, ${lastname}, ${telefono})
   `;
   return { message: "User created successfully" };
 }
@@ -17,14 +20,19 @@ export async function loginUser(data: any) {
   const { email, password } = data;
 
   const result = await client.queryObject`
-    SELECT * FROM usuarios WHERE email = ${email} AND password = ${password};
+    SELECT * FROM usuarios WHERE email = ${email};
   `;
 
   if (result.rows.length === 1) {
-    return { success: true, message: "Login successful", user: result.rows[0] };
-  } else {
-    return { success: false, message: "Invalid email or password" };
+    const user = result.rows[0];
+    const passwordMatch = await compare(password, user.password);
+
+    if (passwordMatch) {
+      return { success: true, message: "Login successful", user };
+    }
   }
+
+  return { success: false, message: "Invalid email or password" };
 }
 export async function updateUser(id: number, data: any) {
   const { firstname, lastname, telefono, email, password } = data;
@@ -43,8 +51,10 @@ export async function updateUser(id: number, data: any) {
   const nuevoLastname = lastname || userActual.lastname;
   const nuevoTelefono = telefono || userActual.telefono;
   const nuevoEmail = email || userActual.email;
-  const nuevoPassword = password || userActual.password;
-
+  let nuevoPassword = userActual.password;
+  if (password) {
+    nuevoPassword = await hash(password);
+  }
   await client.queryObject`
     UPDATE usuarios
     SET firstname = ${nuevoFirstname},
