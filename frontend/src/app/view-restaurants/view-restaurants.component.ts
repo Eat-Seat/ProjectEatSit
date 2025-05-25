@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/authservice.service';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-view-restaurants',
@@ -25,7 +27,7 @@ export class ViewRestaurantsComponent implements OnInit{
     this.authService.getUser$().subscribe(user => {
        console.log(user?.id);
     if (user?.id) {
-      fetch(`http://localhost:3000/restaurants?owner_id=${user.id}`)
+      fetch(`${environment.apiUrl}/restaurants?owner_id=${user.id}`)
         .then(res => res.json())
         .then(data => {
           this.groupedRestaurantes = this.groupByCity(data);
@@ -58,7 +60,7 @@ export class ViewRestaurantsComponent implements OnInit{
 
   if (!confirmacion) return;
 
-  fetch(`http://localhost:3000/restaurants/${r.id}`, {
+  fetch(`${environment.apiUrl}/restaurants/${r.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -88,7 +90,7 @@ export class ViewRestaurantsComponent implements OnInit{
   guardarEdicion(r: any) {
   const id = r.id;
 
-  fetch(`http://localhost:3000/restaurants/${id}`, {
+  fetch(`${environment.apiUrl}/restaurants/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

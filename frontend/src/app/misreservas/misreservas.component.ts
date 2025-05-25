@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/authservice.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-misreservas',
@@ -35,7 +37,7 @@ export class MisreservasComponent implements OnInit {
   }
 
   cargarReservas(userId: number): void {
-    fetch(`http://localhost:3000/reservas?user_id=${userId}`)
+    fetch(`${environment.apiUrl}/reservas?user_id=${userId}`)
       .then(res => res.json())
       .then(data => {
         this.reservas = data;
@@ -56,7 +58,7 @@ export class MisreservasComponent implements OnInit {
   }
   borrarReserva(reservaId: number): void {
   if (confirm('¿Estás seguro de que quieres borrar esta reserva?')) {
-    fetch(`http://localhost:3000/reservas/${reservaId}`, {
+    fetch(`${environment.apiUrl}/reservas/${reservaId}`, {
       method: 'DELETE'
     })
       .then(res => res.json())
@@ -82,7 +84,7 @@ export class MisreservasComponent implements OnInit {
   guardarEdicion(r: any) {
   const id = r.reserva_id;
 
-  fetch(`http://localhost:3000/reservas/${id}`, {
+  fetch(`${environment.apiUrl}/reservas/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(this.formularioEdicion)

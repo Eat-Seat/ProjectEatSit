@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-register',
@@ -26,7 +28,7 @@ export class RegisterComponent {
     //   return;
     // }
   
-    fetch('http://localhost:3000/users', {
+    fetch(`${environment.apiUrl}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

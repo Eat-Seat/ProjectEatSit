@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authservice.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-addreserva',
@@ -34,7 +35,7 @@ export class AddreservaComponent implements OnInit {
       this.user = user;
     });
 
-    fetch('http://localhost:3000/restaurants')
+    fetch(`${environment.apiUrl}/restaurants`)
       .then(res => res.json())
       .then(data => {
         this.groupedRestaurantes = this.groupByCity(data);
@@ -77,7 +78,8 @@ export class AddreservaComponent implements OnInit {
     };
     console.log(body);
 
-    fetch('http://localhost:3000/reservas', {
+
+    fetch(`${environment.apiUrl}/reservas`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

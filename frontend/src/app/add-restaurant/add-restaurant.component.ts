@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/authservice.service';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-add-restaurant',
@@ -43,7 +45,7 @@ export class AddRestaurantComponent implements OnInit{
     owner_id: this.user.id
   };
 
-  fetch('http://localhost:3000/restaurants', {
+  fetch(`${environment.apiUrl}/restaurants`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

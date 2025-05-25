@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 import { AuthService } from '../services/authservice.service';
+import { environment } from '../../environments/environment';
+
 
 
 @Component({
@@ -33,8 +35,8 @@ export class LogInComponent {
       this.errorMessage = 'Please fill in both fields.';
       return;
     }
-  
-    fetch('http://localhost:3000/login', {
+    
+    fetch(`${environment.apiUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
