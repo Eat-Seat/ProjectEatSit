@@ -1,1 +1,9 @@
 @import "normalize.css";
+
+/* ✅ Importar Inter desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+/* ✅ Aplicar la fuente a todo el body */
+body {
+  font-family: 'Inter', sans-serif;
+}
