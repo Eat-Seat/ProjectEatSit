@@ -1,4 +1,4 @@
-import { createRestaurante, deleteRestaurante, getAllRestaurantes, getReservedPeopleCount, getRestaurantById, getRestaurantesByOwner, updateRestaurante } from "../controllers/restaurants.controller.ts";
+import { createRestaurante, deleteRestaurante, getAllRestaurantes, getRestaurantesByOwner, updateRestaurante } from "../controllers/restaurants.controller.ts";
 
 export async function restaurantesRouter(request: Request) {
   const url = new URL(request.url);
@@ -6,18 +6,7 @@ export async function restaurantesRouter(request: Request) {
 
   if (request.method === "POST" && pathname === "/restaurants") {
     const body = await request.json();
-    const { restaurant_id, fecha, personas } = body;
-
-    const restaurant = await getRestaurantById(restaurant_id);
-    if (!restaurant) {
-      return new Response(JSON.stringify({ error: "Restaurant not found" }), { status: 404 });
-    }
-    const alreadyReserved = await getReservedPeopleCount(restaurant_id, fecha);
-    if (alreadyReserved + personas > restaurant.capacidad) {
-      return new Response(JSON.stringify({ error: "Capacity exceeded" }), { status: 400 });
-    }
     const result = await createRestaurante(body);
-    
     return new Response(JSON.stringify(result), {
       headers: {
         "Content-Type": "application/json",
