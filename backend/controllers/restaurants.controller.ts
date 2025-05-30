@@ -73,6 +73,20 @@ export async function updateRestaurante(id: number, data: any) {
 
   return { success: true, message: "Restaurante actualizado correctamente." };
 }
+export async function getRestaurantById(restaurantId: number) {
+  const result = await client.queryObject`
+    SELECT * FROM restaurantes WHERE id = ${restaurantId};
+  `;
+  return result.rows[0] || null;
+}
+export async function getReservedPeopleCount(restaurantId: number, date: string) {
+  const result = await client.queryObject<{ total: number }>`
+    SELECT COALESCE(SUM(personas), 0) as total
+    FROM reservas
+    WHERE restaurant_id = ${restaurantId} AND fecha = ${date};
+  `;
+  return result.rows[0]?.total || 0;
+}
 
 
 

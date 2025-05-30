@@ -66,32 +66,46 @@ export class AddreservaComponent implements OnInit {
   }
 
   guardarReserva(restauranteId: number) {
-    if (!this.user?.id) {
-      alert("Debes estar logueado para hacer una reserva");
-      return;
-    }
+  if (!this.user?.id) {
+    alert("Debes estar logueado para hacer una reserva");
+    return;
+  }
 
-    const body = {
-      ...this.reservaForm,
-      restaurante_id: restauranteId,
-      user_id: this.user.id
-    };
-    console.log(body);
+  const body = {
+    ...this.reservaForm,
+    restaurante_id: restauranteId,
+    user_id: this.user.id
+  };
 
+  fetch(`${environment.apiUrl}/reservas`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+    .then(async res => {
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error("Respuesta inesperada del servidor.");
+      }
 
-    fetch(`${environment.apiUrl}/reservas`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          this.router.navigate(['/misreservas']);
+      if (!res.ok) {
+        if (res.status === 400 && data?.error === "Capacity exceeded") {
+          alert("No hay suficientes plazas disponibles para esa fecha.");
         } else {
-          alert('Error al guardar la reserva');
+          alert(`Error al guardar la reserva: ${data?.error || `Código ${res.status}`}`);
         }
-      })
-      .catch(() => alert('Error de conexión con el servidor'));
+        return;
+      }
+      if (data.success) {
+        this.router.navigate(['/misreservas']);
+      } else {
+        alert('Error al guardar la reserva.');
+      }
+    })
+    .catch(err => {
+      alert(`Error de conexión con el servidor: ${err.message || 'Inténtalo de nuevo más tarde.'}`);
+    });
   }
 }
